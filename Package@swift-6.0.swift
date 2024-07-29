@@ -1,9 +1,9 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 //
 //  Package.swift
 //
-//  Created by Iurii Khvorost <iurii.khvorost@gmail.com> on 2023/10/10.
-//  Copyright © 2023 Iurii Khvorost. All rights reserved.
+//  Created by Iurii Khvorost <iurii.khvorost@gmail.com> on 2024/07/25.
+//  Copyright © 2024 Iurii Khvorost. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -52,10 +52,11 @@ let package = Package(
     ),
     .target(
       name: "ReactBridge",
-      dependencies: ["ReactBridgeMacros", "ReactBridgeUtils"]
+      dependencies: ["ReactBridgeMacros",   "ReactBridgeUtils"]
     ),
     .target(
-      name: "ReactBridgeUtils"
+      name: "ReactBridgeUtils",
+      cSettings: [.define("SymbolLinkageMarkers")]
     ),
     .testTarget(
       name: "ReactBridgeTests",
@@ -65,5 +66,5 @@ let package = Package(
       ]
     ),
   ],
-  swiftLanguageVersions: [.v5]
+  swiftLanguageVersions: [.v6]
 )

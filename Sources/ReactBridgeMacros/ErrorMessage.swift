@@ -27,7 +27,17 @@ import SwiftDiagnostics
 import SwiftSyntax
 
 
-extension SwiftDiagnostics.Diagnostic: Swift.Error {}
+#if swift(>=6.0)
+
+extension Diagnostic: @retroactive @unchecked Sendable {}
+extension Diagnostic: @retroactive Error {}
+
+#else
+
+extension Diagnostic: Error {}
+
+#endif
+
 
 enum ErrorMessage: DiagnosticMessage {
   // Errors

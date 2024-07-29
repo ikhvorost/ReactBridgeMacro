@@ -33,12 +33,13 @@ struct ReactModule {
 
 extension ReactModule: MemberMacro {
   
-  static let registerModule: DeclSyntax =
+  static func registerModule(name: String) -> DeclSyntax {
     """
     @objc static func _registerModule() {
-      RCTRegisterModule(self);
+      RCTRegisterModule(\(raw: name).self);
     }
     """
+  }
   
   static func moduleName(name: String, override: Bool = false) -> DeclSyntax {
     """
@@ -100,7 +101,7 @@ extension ReactModule: MemberMacro {
       var items: [DeclSyntax] = [
         moduleName(name: jsName, override: override),
         requiresMainQueueSetup(value: mainQueueSetup, override: override),
-        registerModule
+        registerModule(name: className)
       ]
       
       if let queue = arguments["methodQueue"]?.stringValue {
